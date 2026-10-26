@@ -1,56 +1,85 @@
-# Практическая работа 1. Номер в списке: 7. Вариант задания: 3.
-# Проверка характеристик целого числа.
+from math import isqrt
+
 
 def main():
-    # Повторяем ввод, пока пользователь не введёт целое число.
     while True:
-        try:
-            number = int(input("Введите целое число: "))
+        # Ввод целого числа с обработкой ошибок.
+        while True:
+            try:
+                number = int(input("Введите целое число: "))
+                break
+            except ValueError:
+                print("Ошибка: введите целое число.")
+
+        print(f"\nВаше число: {number}")
+
+        if number > 0:
+            print("Знак: положительное")
+        elif number < 0:
+            print("Знак: отрицательное")
+        else:
+            print("Знак: ноль")
+
+        if number % 2 == 0:
+            print("Чётное: да")
+        else:
+            print("Чётное: нет")
+
+        if number % 3 == 0:
+            print("Делится на 3: да")
+        else:
+            print("Делится на 3: нет")
+
+        if number % 5 == 0:
+            print("Делится на 5: да")
+        else:
+            print("Делится на 5: нет")
+
+        # Проверка простоты.
+        is_prime = number > 1
+        divisor = 2
+
+        while divisor * divisor <= number:
+            if number % divisor == 0:
+                is_prime = False
+                break
+            divisor += 1
+
+        if is_prime:
+            print("Простое: да")
+        else:
+            print("Простое: нет")
+
+        digit_count = len(str(abs(number)))
+        print(f"Количество цифр: {digit_count}")
+
+        # Проверка полного квадрата.
+        if number < 0:
+            print("Полный квадрат: нет")
+        else:
+            root = isqrt(number)
+
+            if root * root == number:
+                print("Полный квадрат: да")
+            else:
+                print("Полный квадрат: нет")
+
+        # Вопрос о продолжении с проверкой ответа.
+        while True:
+            answer = input(
+                "\nПроверить ещё одно число? (да/нет): "
+            ).strip().lower()
+
+            if answer == "да" or answer == "нет":
+                break
+
+            print("Введите «да» или «нет».")
+
+        if answer == "нет":
+            print("Работа программы завершена.")
             break
-        except ValueError:
-            print("Ошибка: нужно ввести целое число, например 13, -6 или 0.")
 
-    print(f"\nВаше число: {number}")
-
-    if number > 0:
-        print("Знак: положительное")
-    elif number < 0:
-        print("Знак: отрицательное")
-    else:
-        print("Знак: ноль")
-
-    if number % 2 == 0:
-        print("Чётное: да")
-    else:
-        print("Чётное: нет")
-
-    if number % 3 == 0:
-        print("Делится на 3: да")
-    else:
-        print("Делится на 3: нет")
-
-    if number % 5 == 0:
-        print("Делится на 5: да")
-    else:
-        print("Делится на 5: нет")
-
-    # Простое число больше 1 и имеет только два натуральных делителя.
-    is_prime = number > 1
-    divisor = 2
-
-    while divisor * divisor <= number:
-        if number % divisor == 0:
-            is_prime = False
-            break
-        divisor += 1
-
-    if is_prime:
-        print("Простое: да")
-    else:
-        print("Простое: нет")
-
-    digit_count = len(str(abs(number)))
-    print(f"Количество цифр: {digit_count}")
+        print()
 
 
 if __name__ == "__main__":
